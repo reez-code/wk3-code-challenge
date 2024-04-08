@@ -48,3 +48,19 @@ fetch(BASE_URL)
     });
   })
   .catch((error) => console.error("Error fetching movies:", error));
+// A function that updates remaining text when one is bought
+function ticketPurchase() {
+  const accessingTicketNumber = document.getElementById("ticket-num");
+  let ticketsRemaining = parseInt(accessingTicketNumber.textContent);
+  if (ticketsRemaining > 0) {
+    ticketsRemaining--;
+    accessingTicketNumber.textContent = ticketsRemaining;
+  } else {
+    document.getElementById("buy-ticket").textContent = "Sold Out";
+    document.getElementById("buy-ticket").disabled = true;
+  }
+}
+
+document.getElementById("buy-ticket").addEventListener("click", function () {
+  ticketPurchase();
+});
