@@ -18,7 +18,7 @@ function updatePageInfo(movieName) {
   document.getElementById("ticket-num").textContent = movieName.tickets_sold;
 
   const extraContent = document.querySelector("#delete-button");
-  extraContent.innerText = "Delete";
+  extraContent.innerText = "Delete Movie";
   extraContent.className = "ui orange button";
 
   extraContent.addEventListener("click", () => {
