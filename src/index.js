@@ -61,6 +61,4 @@ function ticketPurchase() {
   }
 }
 
-document.getElementById("buy-ticket").addEventListener("click", function () {
-  ticketPurchase();
-});
+document.getElementById("buy-ticket").addEventListener("click", ticketPurchase);
