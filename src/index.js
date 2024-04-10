@@ -1,6 +1,7 @@
 const BASE_URL = "http://localhost:3000/films";
 // This Function updates the content on the Page
 function updatePageInfo(movieName) {
+  console.log(movieName);
   // Updates the Image based on the movie picked
   document.getElementById("poster").src = movieName.poster;
   document.getElementById("poster").alt = movieName.title;
@@ -16,20 +17,6 @@ function updatePageInfo(movieName) {
   document.getElementById("showtime").textContent = movieName.showtime;
   //  Shows the ticket number available based on the movie picked
   document.getElementById("ticket-num").textContent = movieName.tickets_sold;
-
-  const extraContent = document.querySelector("#delete-button");
-  extraContent.innerText = "Delete Movie";
-  extraContent.className = "ui orange button";
-
-  extraContent.addEventListener("click", () => {
-    removeMovie(movieName.id);
-  });
-
-  function removeMovie(movieId) {
-    fetch(`http://localhost:3000/films/${movieId}`, {
-      method: "DELETE",
-    });
-  }
 }
 fetch(BASE_URL)
   .then((response) => response.json())
@@ -39,8 +26,22 @@ fetch(BASE_URL)
     const filmsList = document.getElementById("films");
     data.forEach((movie) => {
       const listItem = document.createElement("li");
+      const delButton = document.createElement("button");
+      delButton.className = "ui orange button";
+      delButton.textContent = "X";
+
+      delButton.addEventListener("click", () => {
+        chuckMovie(movie.id);
+      });
+      function chuckMovie(movieId) {
+        fetch(`http://localhost:3000/films/${movieId}`, {
+          method: "DELETE",
+        });
+      }
+
       listItem.classList.add("film", "item");
-      listItem.textContent = movie.title;
+      listItem.textContent = `${movie.title} `;
+      listItem.appendChild(delButton);
       listItem.addEventListener("click", function () {
         updatePageInfo(movie);
       });
