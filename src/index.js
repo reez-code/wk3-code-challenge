@@ -26,6 +26,7 @@ fetch(BASE_URL)
     const filmsList = document.getElementById("films");
     data.forEach((movie) => {
       const listItem = document.createElement("li");
+      listItem.style.cursor = "pointer";
       const delButton = document.createElement("button");
       delButton.className = "ui orange button";
       delButton.textContent = "X";
