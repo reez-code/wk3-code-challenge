@@ -16,18 +16,9 @@ function updatePageInfo(movieName) {
   document.getElementById("showtime").textContent = movieName.showtime;
   //  Shows the ticket number available based on the movie picked
   document.getElementById("ticket-num").textContent = movieName.tickets_sold;
-  // A function that updates remaining text when one is bought
 
   document.getElementById("buy-ticket").addEventListener("click", () => {
-    if (movieName.tickets_sold > 0) {
-      movieName.tickets_sold--;
-      document.getElementById("ticket-num").textContent =
-        movieName.tickets_sold;
-    } else {
-      document.getElementById("buy-ticket").textContent = "Sold Out";
-      document.getElementById("buy-ticket").disabled = true;
-    }
-    updateTicketNumber(movieName);
+    ticketPurchase(movieName);
   });
 }
 fetch(BASE_URL)
@@ -62,16 +53,30 @@ fetch(BASE_URL)
     });
   })
   .catch((error) => console.error("Error fetching movies:", error));
+// A function that updates remaining ticket when one is bought
+function ticketPurchase(movie) {
+  const accessingTicketNumber = document.getElementById("ticket-num");
+  let ticketsRemaining = parseInt(accessingTicketNumber.textContent);
+  if (ticketsRemaining > 0) {
+    ticketsRemaining--;
+    accessingTicketNumber.textContent = ticketsRemaining;
+  } else {
+    document.getElementById("buy-ticket").textContent = "Sold Out";
+    document.getElementById("buy-ticket").disabled = true;
+  }
+  updateTicketNumber({ ...movie, tickets_sold: ticketsRemaining });
+}
 
-//Updates ticket number in server
 function updateTicketNumber(movie) {
+  console.log(movie);
   fetch(`http://localhost:3000/films/${movie.id}`, {
     method: "PATCH",
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(movie),
   })
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((res = res.json()))
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
 }
