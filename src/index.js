@@ -39,9 +39,12 @@ fetch(BASE_URL)
         chuckMovie(movie.id);
       });
       function chuckMovie(movieId) {
-        fetch(`http://localhost:3000/films/${movieId}`, {
-          method: "DELETE",
-        });
+        fetch(
+          `https://my-json-server.typicode.com/reez-code/wk3-code-challenge/films${movieId}`,
+          {
+            method: "DELETE",
+          }
+        );
       }
 
       listItem.classList.add("film", "item");
@@ -70,13 +73,16 @@ function ticketPurchase(movie) {
 
 function updateTicketNumber(movie) {
   console.log(movie);
-  fetch(`http://localhost:3000/films/${movie.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(movie),
-  })
+  fetch(
+    `https://my-json-server.typicode.com/reez-code/wk3-code-challenge/films${movie.id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movie),
+    }
+  )
     .then((res = res.json()))
     .then((data) => console.log(data))
     .catch((error) => console.log(error));
