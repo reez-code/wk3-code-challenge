@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/films";
+const BASE_URL =
+  "https://my-json-server.typicode.com/reez-code/wk3-code-challenge/films";
 // This Function updates the content on the Page
 function updatePageInfo(movieName) {
   // Updates the Image based on the movie picked
